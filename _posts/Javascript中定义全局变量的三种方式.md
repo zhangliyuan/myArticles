@@ -1,6 +1,6 @@
 title: Javascript定义全局变量的三种方式
 date: 2015-10-11 07:50:17
-tags:JavaScript 
+tags: JavaScript 
 ---
 
 ### 方式1
