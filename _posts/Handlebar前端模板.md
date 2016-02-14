@@ -1,4 +1,4 @@
-title: 前端开发规范
+title: Handlebar的基础语法
 date: 2015-12-18 22:29:19
 tags: 前端,模板
 ---
@@ -19,11 +19,9 @@ var source = "<p>Hello, my name is {{name}}. I am from {{hometown}}. I have " +
              "{{kids.length}} kids:</p>" +
              "<ul>{{#kids}}<li>{{name}} is {{age}}</li>{{/kids}}</ul>";
 var template = Handlebars.compile(source);
-
 var data = { "name": "Alan", "hometown": "Somewhere, TX",
-             "kids": [{"name": "Jimmy", "age": "12"}, {"name": "Sally", "age": "4"}]};
+             "kids": [{"name": "Jimmy", "age": "12"}, {"name": "Sally", "age":}]};
 var result = template(data);
-
 // Would render:
 // <p>Hello, my name is Alan. I am from Somewhere, TX. I have 2 kids:</p>
 // <ul>
@@ -33,7 +31,7 @@ var result = template(data);
 ```
 
 ### HTML编码
-在handlebars里，`{{expression}}`会返回一个经过编码的HTML，如果你不希望被编码，可以使用`{{{`
+在handlebars里，`{{expression}}`会返回一个经过编码的HTML，如果你不希望被编码，可以使用"\{ \{ \{"
 
 ```html
 <div class="entry">
@@ -73,7 +71,8 @@ Handlebars.registerHelper('link', function(text, url) {
   return new Handlebars.SafeString(result);
 });
 ```
-这里将会对传入的参数进行编码，返回值是“安全的”，所以就算你不使用`{{{`，handlebars也不会再次编码了。
+
+这里将会对传入的参数进行编码，返回值是“安全的”，所以就算你不使用"\{ \{ \{"，handlebars也不会再次编码了。
 
 ### Handlebars中的helper
 在上面提到的 HTML编码 中，我们使用了`Handlebars.registerHelper`。下面我们可以讲一讲这个`helper`了。
