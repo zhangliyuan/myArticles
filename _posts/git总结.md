@@ -133,3 +133,8 @@ git reset --hard origin/master
 ```
 
 #### 删除文件
+```git 
+git rm  -r -n --cached   */bin
+```
+表示删除所有目录下的bin目录
+`-n`: 只是查看要删除的文件，并不真正删除；去掉这个选项就会删除文件；
