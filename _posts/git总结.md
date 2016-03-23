@@ -81,34 +81,66 @@ git remote add origin <server>
 如此你就能够将你的改动推送到所添加的服务器上去了。
 
 #### 分支管理
-创建一个叫做“feature_x”的分支，并切换过去：
+##### 创建分支
+创建一个叫做“feature_x”的本地分支，并切换过去：
 ```git 
 git checkout -b feature_x
 ```
-切换回主分支：
+这个分支并没有跟远程分支简历跟踪（track）关系，也就是说使用git pull/push的时候，并不会自动从远程的分支获取，会提示一下信息
+
+```git
+$ git pull
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details.
+    git pull <remote> <branch>
+If you wish to set tracking information for this branch you can do so with:
+    git branch --set-upstream-to=origin/<branch> localBranch
+``` 
+
+
+如提示信息，所示要么指定远程分支<remote>，要么跟某一个远程分支建立跟踪（track）关系，命令分别是
+
+```git 
+git pull <remote> <branch> //指定获取更新的远程分支
+git branch --set-upstream-to=origin/<branch> localBranch   //与远程分支建立跟踪关系
+```
+
+##### 切换分支：
 ```git 
 git checkout master
 ```
-再把新建的分支删掉：
+##### 删除本地分支：
 ```git 
 git branch -d feature_x
 ```
-除非你将分支推送到远端仓库，不然该分支就是 不为他人所见的：
+
+##### 建立远程分支
+将本地分支推送到远端仓库，不然该分支就是 不为他人所见的：
 ```git 
 git push origin <branch>
 ```
+###### 删除远程分支
+注意分号
+```git 
+git push origin :<branch>
+```
+
 
 #### 更新与合并
-要更新你的本地仓库至最新改动，执行：
+要更新你的本地仓库至最新改动，本地分支已经与远程分支建立跟踪关系，执行：
 ```git 
 git pull
 ```
+如果为建立跟踪关系，则之前所讲， git pull后面需要指定远程分支名称
+
 以在你的工作目录中 获取（fetch） 并 合并（merge） 远端的改动。
 要合并其他分支到你的当前分支（例如 master），执行：
 ```git 
 git merge <branch>
 ```
 两种情况下，git 都会尝试去自动合并改动。不幸的是，自动合并并非次次都能成功，并可能导致 冲突（conflicts）。 这时候就需要你修改这些文件来人肉合并这些 冲突（conflicts） 了。改完之后，你需要执行如下命令以将它们标记为合并成功：
+
 ```git 
 git add <filename>
 ```
@@ -138,3 +170,19 @@ git rm  -r -n --cached   */bin
 ```
 表示删除所有目录下的bin目录
 `-n`: 只是查看要删除的文件，并不真正删除；去掉这个选项就会删除文件；
+
+
+#### 标签管理
+查看标签列表
+```git
+git tag 
+或 
+git tag -l
+```
+可以指定pattern
+
+基于某个标签创建分支：
+```git 
+git checkout -b <branch_name> <tag_name>
+```
+创建的分支属于本地分支
